@@ -1,101 +1,84 @@
 package com.example.hw3_b;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import adapter.SpaceAdapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+public class MainActivity extends AppCompatActivity {
+
+    public final String NAME_TEXT = "text";
+    public final String NAME_VALUE = "value";
+
+    ImageView image;
+    TextView name;
+    TextView desc;
+    RecyclerView rv;
+    SpaceAdapter adapter;
+
+    List<Space> list= new ArrayList<>();
+
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        image = findViewById(R.id.iv_main);
+        name = findViewById(R.id.tv_name_main);
+        desc = findViewById(R.id.tv_desc_main);
+        rv = findViewById(R.id.rv_main);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        SpaceAdapter.OnItemClickListener onItemClickListener = new SpaceAdapter.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onItemClick(Space space) {
+                Intent intent = new Intent(MainActivity.this, Description.class);
+                intent.putExtra(NAME_TEXT, space.getName());
+                intent.putExtra(NAME_VALUE, space.getDesc());
+                startActivity(intent);
             }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        };
+        adapter = new SpaceAdapter(fillIn(), onItemClickListener);
+        rv.setAdapter(adapter);
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+    public List<Space> fillIn(){
+        list.add(new Space("Темная материя", "Тёмная материя, являющаяся одной из самых великих тайн " +
+                "в современной астрофизике," +
+                " представляет собой гипотетическую материю, которую невозможно увидеть с помощью телескопов. " +
+                "Тем не менее, считается, что приблизительно 85 процентов материи " +
+                "во Вселенной является тёмной материей.", R.drawable.hey));
+        list.add(new Space("Пульсар", "Пульсар представляет собой плотную," +
+                " сильно намагниченную, вращающуюся нейтронную звезду, которая испускает луч " +
+                "электромагнитного излучения. " +
+                "В прошлом астрономы считали, что излучение, которое можно наблюдать, " +
+                "когда оно направлено в сторону Земли, было инопланетной формой общения. ", R.drawable.pulsar));
+        list.add(new Space("Красный карлик", "Относительно маленькие и холодные " +
+                "красные карлики являются наиболее распространёнными" +
+                " звёздами в Млечном Пути и составляют три четверти звёзд в галактике. " +
+                "Наиболее близко расположенным к Солнцу (примерно в 4,3 световых годах)" +
+                " и возможно самым знаменитым красным карликом является Проксима Центавра (Proxima Centauri).", R.drawable.red_dwarf));
+        list.add(new Space("Химико","Химико + desc", R.drawable.himiko ));
+        list.add(new Space("Сверхзвуковые звезды", "Сверхзвуковые звезды + desc",R.drawable.hypervelocity ));
+        list.add(new Space("Магнетар", "Магнетар + desc",R.drawable.magnetar ));
+        list.add(new Space("Тройная туманность", "Тройная туманность + desc", R.drawable.nebula));
+        list.add(new Space("Психея", "Психея + desc", R.drawable.psyche));
+        list.add(new Space("Квазары", "Квазары + desc", R.drawable.quasar));
+        list.add(new Space("Сверхгигант", "Сверхгигант + desc", R.drawable.supergiant));
+        return list;
     }
 }
