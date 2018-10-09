@@ -3,14 +3,15 @@ package com.example.hw3_b;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-public class Description extends Activity {
+public class DescriptionActivity extends AppCompatActivity {
 
-    TextView tv_name;
-    TextView tv_desc;
     public final String NAME_TEXT = "text";
     public final String NAME_VALUE = "value";
+    TextView tv_name;
+    TextView tv_desc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

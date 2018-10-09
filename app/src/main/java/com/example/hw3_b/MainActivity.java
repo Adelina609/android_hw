@@ -1,23 +1,14 @@
 package com.example.hw3_b;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import adapter.SpaceAdapter;
@@ -46,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         SpaceAdapter.OnItemClickListener onItemClickListener = new SpaceAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Space space) {
-                Intent intent = new Intent(MainActivity.this, Description.class);
+                Intent intent = new Intent(MainActivity.this, DescriptionActivity.class);
                 intent.putExtra(NAME_TEXT, space.getName());
                 intent.putExtra(NAME_VALUE, space.getDesc());
                 startActivity(intent);

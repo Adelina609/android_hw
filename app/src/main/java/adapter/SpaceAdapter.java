@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.hw3_b.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,6 +14,7 @@ public class SpaceAdapter extends RecyclerView.Adapter<SpaceAdapter.SpaceViewHol
 
     List<Space> list;
     OnItemClickListener onItemClickListener;
+
     public SpaceAdapter(List<Space> list, OnItemClickListener onItemClickListener) {
         this.list = list;
         this.onItemClickListener = onItemClickListener;
@@ -24,7 +23,6 @@ public class SpaceAdapter extends RecyclerView.Adapter<SpaceAdapter.SpaceViewHol
     public List<Space> getList() {
         return list;
     }
-
 
     @Override
     public SpaceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
