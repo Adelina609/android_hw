@@ -27,12 +27,12 @@ public class Films {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDesc() {
         return desc;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDesc(String desc) {
