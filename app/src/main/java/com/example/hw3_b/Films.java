@@ -1,15 +1,26 @@
 package com.example.hw3_b;
 
-public class Space {
+import android.support.annotation.NonNull;
+
+public class Films {
 
     private String name;
     private String desc;
+    private int rating;
     private int image;
 
-    public Space(String name, String desc, int image) {
+    public Films(String name, int rating, int image) {
         this.name = name;
-        this.desc = desc;
+        this.rating = rating;
         this.image = image;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public String getName() {

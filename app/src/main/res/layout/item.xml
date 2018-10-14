@@ -10,13 +10,12 @@
         android:id="@+id/iv_main"
         android:layout_width="70dp"
         android:layout_height="50dp"
+        android:layout_margin="10dp"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher"
-        tools:ignore="ContentDescription"
-        android:layout_margin="10dp"/>
-
+        tools:ignore="ContentDescription" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
