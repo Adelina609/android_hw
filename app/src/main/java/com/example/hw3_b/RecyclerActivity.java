@@ -1,14 +1,11 @@
 package com.example.hw3_b;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -18,7 +15,7 @@ import android.widget.TextView;
 
 import adapter.FilmsAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class RecyclerActivity extends AppCompatActivity {
 
     public final String NAME_TEXT = "text";
     public final String NAME_VALUE = "value";
@@ -41,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         FilmsAdapter.OnItemClickListener onItemClickListener = new FilmsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Films space) {
-                Intent intent = new Intent(MainActivity.this, DescriptionActivity.class);
+                Intent intent = new Intent(RecyclerActivity.this, DescriptionActivity.class);
                 intent.putExtra(NAME_TEXT, space.getName());
                 intent.putExtra(NAME_VALUE, space.getDesc());
                 startActivity(intent);
@@ -65,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 adapter.updateList(FilmUtils.filterNames());
                 return true;
             case R.id.action_symbols_filter:
+                adapter.updateList(FilmUtils.filterRatings());
                 return true;
         }
         return super.onOptionsItemSelected(item);

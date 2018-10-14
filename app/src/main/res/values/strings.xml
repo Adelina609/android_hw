@@ -11,4 +11,6 @@
     <string name="title_notifications">Notifications</string>
     <string name="action_symbols_filter">Symbols Filter</string>
     <string name="action_nums_filter">Nums Filter</string>
+    <string name="view_pager">ViewPager</string>
+    <string name="recycler_view">recycler</string>
 </resources>

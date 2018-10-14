@@ -19,7 +19,7 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.FilmsViewHol
     OnItemClickListener onItemClickListener;
 
     public FilmsAdapter(List<Films> list, OnItemClickListener onItemClickListener) {
-        this.list.addAll(list);
+        this.list = list;
         this.onItemClickListener = onItemClickListener;
     }
 
