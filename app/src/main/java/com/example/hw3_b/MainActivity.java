@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         };
-        adapter = new FilmsAdapter(fillIn(), onItemClickListener);
+        adapter = new FilmsAdapter(FilmUtils.getFilms(), onItemClickListener);
         rv.setAdapter(adapter);
     }
 
@@ -62,31 +62,11 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.action_rating_filter:
-                FilmDiffUtilCallBack diff = new FilmDiffUtilCallBack(fillIn(), filterNames());
-                DiffUtil.DiffResult result = DiffUtil.calculateDiff(diff);
-                adapter.setList(filterNames());
-                result.dispatchUpdatesTo(adapter);
+                adapter.updateList(FilmUtils.filterNames());
+                return true;
             case R.id.action_symbols_filter:
                 return true;
-                default:
-                    return super.onOptionsItemSelected(item);
         }
-    }
-
-    public List<Films> fillIn(){
-        list.add(new Films("Начало", 7, R.drawable.inception));
-        list.add(new Films("Шестое чувство", 74, R.drawable.sense));
-        list.add(new Films("1+1", 5, R.drawable.intouchables));
-        list.add(new Films("Остров проклятых", 37, R.drawable.island));
-        list.add(new Films("Эффект бабочки", 79, R.drawable.butterfly));
-        list.add(new Films("А в душе я танцую", 96, R.drawable.soul));
-        list.add(new Films("ВАЛЛ·И", 31, R.drawable.wall_y));
-        return list;
-    }
-    @TargetApi(24)
-    public List<Films> filterNames(){
-        List<Films> newList = fillIn();
-        Collections.sort(newList, new SymbolsComparator());
-        return newList;
+        return super.onOptionsItemSelected(item);
     }
 }

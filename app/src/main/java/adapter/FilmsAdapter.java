@@ -1,5 +1,6 @@
 package adapter;
 
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.hw3_b.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,7 +19,7 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.FilmsViewHol
     OnItemClickListener onItemClickListener;
 
     public FilmsAdapter(List<Films> list, OnItemClickListener onItemClickListener) {
-        this.list = list;
+        this.list.addAll(list);
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -43,6 +45,13 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.FilmsViewHol
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void updateList(List<Films> newList){
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new FilmDiffUtilCallBack(this.list, newList));
+        this.list.clear();
+        this.list.addAll(newList);
+        result.dispatchUpdatesTo(this);
     }
 
     class FilmsViewHolder extends RecyclerView.ViewHolder{
