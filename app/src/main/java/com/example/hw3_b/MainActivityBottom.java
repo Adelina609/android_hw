@@ -1,44 +1,49 @@
 package com.example.hw3_b;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 public class MainActivityBottom extends AppCompatActivity {
 
-    private TextView mTextMessage;
+    Fragment fragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        public boolean onNavigationItemSelected(MenuItem item) {
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    fragment = new EmptyFragment();
+                    initFragManager();
                     return true;
-                case R.id.navigation_dashboard:
-                    Intent intent1 = new Intent(MainActivityBottom.this, PageActivity.class);
-                    startActivity(intent1);
+                case R.id.navigation_viewpager:
+                    fragment = new ViewPagerFragment();
+                    initFragManager();
                     return true;
-                case R.id.navigation_notifications:
-                    Intent intent = new Intent(MainActivityBottom.this, RecyclerActivity.class);
-                    startActivity(intent);
+                case R.id.navigation_recycler:
+                    fragment = new RecyclerFragment();
+                    initFragManager();
                     return true;
             }
-            return false;
+            return true;
         }
     };
+
+    public void initFragManager(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bottom_main);
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }

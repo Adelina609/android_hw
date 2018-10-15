@@ -8,32 +8,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.hw3_b.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.FilmsViewHolder>{
 
     List<Films> list;
-    OnItemClickListener onItemClickListener;
 
-    public FilmsAdapter(List<Films> list, OnItemClickListener onItemClickListener) {
-        this.list = list;
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    public List<Films> getList() {
-        return list;
-    }
-    public void setList(List<Films> list) {
+    public FilmsAdapter(List<Films> list) {
         this.list = list;
     }
 
     @Override
     public FilmsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cv, parent, false);
+                .inflate(R.layout.cardview, parent, false);
         return new FilmsViewHolder(view);
     }
 
@@ -48,6 +37,7 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.FilmsViewHol
     }
 
     public void updateList(List<Films> newList){
+
         DiffUtil.DiffResult result = DiffUtil.calculateDiff(new FilmDiffUtilCallBack(this.list, newList));
         this.list.clear();
         this.list.addAll(newList);
@@ -55,6 +45,7 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.FilmsViewHol
     }
 
     class FilmsViewHolder extends RecyclerView.ViewHolder{
+
         ImageView image;
         TextView name;
         TextView rating;
@@ -63,23 +54,12 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.FilmsViewHol
             image = view.findViewById(R.id.person_photo);
             name = view.findViewById(R.id.person_name);
             rating = view.findViewById(R.id.person_age);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Films films = list.get(getLayoutPosition());
-                    onItemClickListener.onItemClick(films);
-                }
-            });
         }
 
         public void bind(Films object ){
             name.setText(object.getName());
-            rating.setText(""+object.getRating());
+            rating.setText("rating: "+object.getRating());
             image.setImageResource(object.getImage());
         }
-    }
-
-    public interface OnItemClickListener{
-        void onItemClick(Films films);
     }
 }
