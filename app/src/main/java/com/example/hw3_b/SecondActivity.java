@@ -17,4 +17,3 @@ public class SecondActivity extends AppCompatActivity {
         tvNotif = findViewById(R.id.tv_notif);
     }
 }
-

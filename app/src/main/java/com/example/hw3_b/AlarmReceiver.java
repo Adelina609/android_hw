@@ -10,11 +10,10 @@ import android.media.RingtoneManager;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-    final String ID = "5";
+    private final String ID = "5";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 

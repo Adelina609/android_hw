@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        etMin =  findViewById(R.id.et_time_minutes);
-        etSec = findViewById(R.id.et_time_sec);
+        etMin =  findViewById(R.id.et_minutes);
+        etSec = findViewById(R.id.et_sec);
         Button btnStart = findViewById(R.id.btn_start);
         Button btnStop = findViewById(R.id.btn_stop);
         tvLeft = findViewById(R.id.tv_timer);
@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private void start() {
         long timeOnTimer = Integer.parseInt(etMin.getText().toString()) * 60000 +
                 Integer.parseInt(etSec.getText().toString()) * 1000;
@@ -67,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
         timer = new CountDownTimer(timeOnTimer, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                tvLeft.setText("" + millisUntilFinished / 60000 + " min " + (millisUntilFinished % 60000) / 1000 + " sec"
+                tvLeft.setText("" + millisUntilFinished / 60000 + " min " +
+                        (millisUntilFinished % 60000) / 1000 + " sec"
                 + " left");
             }
-
             @Override
             public void onFinish() {
                 Toast.makeText(getApplicationContext(), "Yeeeey", Toast.LENGTH_LONG)
