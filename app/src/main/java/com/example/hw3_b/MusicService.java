@@ -76,11 +76,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         mediaPlayer.start();
     }
 
-//    @Override
-//    public void onPrepared(MediaPlayer mediaPlayer) {
-//        mediaPlayer.start();
-//    }
-
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
         mediaPlayer.reset();
