@@ -32,16 +32,20 @@ public class MainActivityOld extends AppCompatActivity {
         SharedPreferences pref = PreferenceManager
                 .getDefaultSharedPreferences(this);
         String themeName = pref.getString("theme", "Theme1");
-        if (themeName.equals("Theme1")) {
-            setTheme(R.style.OrangeAppTheme);
-        } else if (themeName.equals("Theme2")) {
-            Toast.makeText(this, "set theme", Toast.LENGTH_SHORT).show();
-            setTheme(R.style.PurpleAppTheme);
+        switch (themeName){
+            case("Theme1"):
+                setTheme(R.style.OrangeAppTheme);
+                break;
+            case("Theme2"):
+                setTheme(R.style.PurpleAppTheme);
+                break;
+            case("Theme3"):
+                setTheme(R.style.TealAppTheme);
+                break;
         }
         Toast.makeText(this, "Theme has been reset to " + themeName,
                 Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
-        //setTheme(R.style.OrangeAppTheme);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.rv_main);
         tvName = findViewById(R.id.tv_nameOfSong);
@@ -62,71 +66,6 @@ public class MainActivityOld extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-//    private ServiceConnection musicConnection = new ServiceConnection() {
-//        @Override
-//        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-//            MusicBinder binder = (MusicBinder) iBinder;
-//            musicSrv = binder.getService();
-//            musicSrv.setList(songs);
-//            musicBound = true;
-//        }
-//
-//        @Override
-//        public void onServiceDisconnected(ComponentName componentName) {
-//            musicBound = false;
-//        }
-//    };
-
-
-//    @Override
-//    protected void onDestroy() {
-//        stopService(playIntent);
-//        musicSrv = null;
-//        super.onDestroy();
-//    }
-
-
-//    public void getSongList() {
-//        ContentResolver musicResolver = getContentResolver();
-//        Uri musicUri =
-//                android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-//        Cursor musicCursor = musicResolver.query(musicUri, null, null,
-//                null, null);
-//        if(musicCursor!=null && musicCursor.moveToFirst()){
-//            //get columns
-//            Toast.makeText(this, "GETSONGLIST", Toast.LENGTH_SHORT).show();
-//            int titleColumn = musicCursor.getColumnIndex
-//                    (android.provider.MediaStore.Audio.Media.TITLE);
-//            int idColumn = musicCursor.getColumnIndex
-//                    (android.provider.MediaStore.Audio.Media._ID);
-//            int artistColumn = musicCursor.getColumnIndex
-//                    (android.provider.MediaStore.Audio.Media.ARTIST);
-//            //add songs to list
-//            do {
-//                long thisId = musicCursor.getLong(idColumn);
-//                String thisTitle = musicCursor.getString(titleColumn);
-//                String thisArtist = musicCursor.getString(artistColumn);
-//                songs.add(new Song(thisId, thisTitle, thisArtist));
-//            }
-//            while (musicCursor.moveToNext());
-//        }
-//    }
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        if(playIntent == null){
-//            playIntent = new Intent(this, MusicService.class);
-//            bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
-//            startService(playIntent);
-//        }
-//    }
-
-//    public void songPicked(View view){
-//        musicSrv.setSong(Integer.parseInt(view.getTag().toString()));
-//        musicSrv.playSong();
-//    }
-
     public ArrayList<SongOls> fillIn(){
         songs.add(new SongOls("Awolnation - Sail", R.raw.awolnation_sail));
         songs.add(new SongOls("Nirvana - Polly", R.raw.nirvana_polly));
@@ -135,30 +74,6 @@ public class MainActivityOld extends AppCompatActivity {
         songs.add(new SongOls("Seether - The gift", R.raw.seether_the_gift));
         return songs;
     }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-////        sp = PreferenceManager.getDefaultSharedPreferences(this);
-////        theme = sp.getInt("listPref",R.style.AppTheme);
-//        setTheme(theme);
-//    }
-
-//    @Override
-//    protected void onStart() {
-//        sp = PreferenceManager.getDefaultSharedPreferences(this);
-//        theme = sp.getInt("listPref",R.style.AppTheme);
-//        setTheme(theme);
-//        super.onStart();
-//    }
-
-
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        sp = PreferenceManager.getDefaultSharedPreferences(this);
-//        theme = sp.getInt("listPref", R.style.AppTheme);
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
