@@ -49,13 +49,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         songs = list;
     }
 
-//    @Override
-//    public boolean onUnbind(Intent intent) {
-//        mediaPlayer.stop();
-//        mediaPlayer.release();
-//        return false;
-//    }
-
     boolean flag = true;
     public void playSong(){
         if(mediaPlayer.isPlaying()){
