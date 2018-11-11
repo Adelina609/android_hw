@@ -76,18 +76,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         mediaPlayer.start();
     }
 
-//    public void playNextAfterTime(){
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                playNext();
-//                if(playlist.size() > i+1){
-//                    playNextAfterTime();
-//                }
-//            }
-//        }, mediaPlayer.getDuration() + 100);
-//    }
-
 //    @Override
 //    public void onPrepared(MediaPlayer mediaPlayer) {
 //        mediaPlayer.start();
