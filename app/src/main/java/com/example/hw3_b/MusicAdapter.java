@@ -10,12 +10,8 @@ import java.util.List;
 
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHolder> {
 
-    public List<SongOls> getList() {
-        return list;
-    }
-
-    List<SongOls> list;
-    OnItemClickListener onItemClickListener;
+    private List<SongOls> list;
+    private OnItemClickListener onItemClickListener;
 
     public MusicAdapter(List<SongOls> list, OnItemClickListener onItemClickListener) {
         this.list = list;

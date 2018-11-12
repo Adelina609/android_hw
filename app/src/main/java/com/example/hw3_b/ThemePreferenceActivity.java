@@ -5,11 +5,6 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 
 public class ThemePreferenceActivity extends PreferenceActivity {
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        addPreferencesFromResource(R.xml.preferences);
-//    }
 
     public static final int RESULT_CODE_THEME_UPDATED = 1;
 
@@ -17,7 +12,8 @@ public class ThemePreferenceActivity extends PreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
-        findPreference("theme").setOnPreferenceChangeListener(new RefershActivityOnPreferenceChangeListener(RESULT_CODE_THEME_UPDATED));
+        findPreference("theme").setOnPreferenceChangeListener(
+                new RefershActivityOnPreferenceChangeListener(RESULT_CODE_THEME_UPDATED));
     }
 
     private class RefershActivityOnPreferenceChangeListener implements Preference.OnPreferenceChangeListener {

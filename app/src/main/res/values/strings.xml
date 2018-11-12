@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Player</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -22,6 +23,5 @@
     <string name="theme_summary">Appearance</string>
     <string name="theme_dialog_title">Theme</string>
     <string name="settings">Settings</string>
-
 
 </resources>

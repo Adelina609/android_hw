@@ -24,28 +24,24 @@ public class PlayingActivity extends AppCompatActivity {
 
     public final String NAME = "name";
     public final String RAW = "raw";
-    public final String THEME = "themeName";
-    ImageView logo;
-    ImageButton next;
-    ImageButton prev;
-    ImageButton start;
-    TextView tv_name;
-
-    AudioManager audioManager;
-    MusicService musicSrv;
-    ArrayList<SongOls> songs;
-
+    public ImageView logo;
+    public ImageButton next;
+    public ImageButton prev;
+    public ImageButton start;
+    public TextView tv_name;
+    public AudioManager audioManager;
+    public MusicService musicSrv;
     private boolean musicBound;
     private Intent playIntent;
     private int raw = 0;
     private String themeName;
+    private SongsUtil songsUtil = new SongsUtil();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences pref = PreferenceManager
                 .getDefaultSharedPreferences(this);
         themeName = pref.getString("theme", "Orange");
-        Toast.makeText(this, "theme is Main" + themeName, Toast.LENGTH_SHORT).show();
         setAppTheme();
 
         super.onCreate(savedInstanceState);
@@ -59,10 +55,7 @@ public class PlayingActivity extends AppCompatActivity {
         String name = intent.getStringExtra(NAME);
         raw = intent.getIntExtra(RAW, 0);
         tv_name.setText(name);
-
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-        songs = new ArrayList<>();
-        fillIn();
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,25 +67,16 @@ public class PlayingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 musicSrv.playNext();
-                tv_name.setText(songs.get(musicSrv.getI()).getName());
+                tv_name.setText(songsUtil.fillIn().get(musicSrv.getI()).getName());
             }
         });
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 musicSrv.playPrev();
-                tv_name.setText(songs.get(musicSrv.getI()).getName());
+                tv_name.setText(songsUtil.fillIn().get(musicSrv.getI()).getName());
             }
         });
-    }
-
-    public ArrayList<SongOls> fillIn(){
-        songs.add(new SongOls("Awolnation - Sail", R.raw.awolnation_sail));
-        songs.add(new SongOls("Nirvana - Polly", R.raw.nirvana_polly));
-        songs.add(new SongOls("Nomy - Heart of ice", R.raw.nomy_heart_of_ice));
-        songs.add(new SongOls("Our Last night - Sunrise", R.raw.our_last_night_sunrise));
-        songs.add(new SongOls("Seether - The gift", R.raw.seether_the_gift));
-        return songs;
     }
 
     @Override
@@ -118,7 +102,6 @@ public class PlayingActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -133,7 +116,7 @@ public class PlayingActivity extends AppCompatActivity {
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) iBinder;
             musicSrv = binder.getService();
-            musicSrv.setList(songs);
+            musicSrv.setList(songsUtil.fillIn());
             musicSrv.setI(getPosition());
             musicBound = true;
         }
@@ -145,7 +128,7 @@ public class PlayingActivity extends AppCompatActivity {
 
     public int getPosition(){
         for(int i = 0; i < 5; i++){
-            if(raw == songs.get(i).getRaw()){
+            if(raw == songsUtil.fillIn().get(i).getRaw()){
                 return i;
             }
         }
@@ -169,5 +152,4 @@ public class PlayingActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

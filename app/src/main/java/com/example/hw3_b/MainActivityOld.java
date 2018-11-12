@@ -22,25 +22,22 @@ public class MainActivityOld extends AppCompatActivity {
     TextView tvName;
     RecyclerView recyclerView;
     MusicAdapter adapter;
-    ArrayList<SongOls> songs;
     SharedPreferences sp;
-    int theme = 0;
     private int SETTINGS_ACTION = 1;
     public String themeName;
+    private SongsUtil songsUtil = new SongsUtil();
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         SharedPreferences pref = PreferenceManager
                 .getDefaultSharedPreferences(this);
         themeName = pref.getString("theme", "Orange");
-        Toast.makeText(this, "theme is Main" + themeName, Toast.LENGTH_SHORT).show();
         setAppTheme();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.rv_main);
         tvName = findViewById(R.id.tv_nameOfSong);
-        songs = new ArrayList<>();
         recyclerView.setLayoutManager(new
                 LinearLayoutManager(this));
         MusicAdapter.OnItemClickListener onItemClickListener = new MusicAdapter.OnItemClickListener() {
@@ -50,21 +47,11 @@ public class MainActivityOld extends AppCompatActivity {
                 intent.putExtra(NAME, song.getName());
                 intent.putExtra(RAW, song.getRaw());
                 intent.putExtra(THEME, themeName);
-                Toast.makeText(getApplicationContext(), "theme is Main" + themeName, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         };
-        adapter = new MusicAdapter(fillIn(), onItemClickListener);
+        adapter = new MusicAdapter(songsUtil.fillIn(), onItemClickListener);
         recyclerView.setAdapter(adapter);
-    }
-
-    public ArrayList<SongOls> fillIn(){
-        songs.add(new SongOls("Awolnation - Sail", R.raw.awolnation_sail));
-        songs.add(new SongOls("Nirvana - Polly", R.raw.nirvana_polly));
-        songs.add(new SongOls("Nomy - Heart of ice", R.raw.nomy_heart_of_ice));
-        songs.add(new SongOls("Our Last night - Sunrise", R.raw.our_last_night_sunrise));
-        songs.add(new SongOls("Seether - The gift", R.raw.seether_the_gift));
-        return songs;
     }
 
     public void setAppTheme(){

@@ -1,8 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -25,6 +23,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDarkPurple</item>
         <item name="colorAccent">@color/colorAccentPurple</item>
         <item name="windowBackground">@color/for_background</item>
+        <item name="android:textColorPrimary">@color/textTabColor</item>
     </style>
 
     <style name="TealAppTheme" parent="Base.Theme.AppCompat.Light">
@@ -32,11 +31,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDarkTeal</item>
         <item name="colorAccent">@color/colorAccentTeal</item>
         <item name="windowBackground">@color/for_background</item>
+        <item name="android:textColorPrimary">@color/textTabColor</item>
     </style>
-
-
-
-
-
 
 </resources>

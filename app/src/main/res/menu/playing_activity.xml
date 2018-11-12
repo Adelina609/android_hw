@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_end"
-        android:icon="@drawable/ic_menu_send"
+        android:icon="@drawable/close"
         android:orderInCategory="2"
         android:title="@string/end"
         app:showAsAction="ifRoom" />

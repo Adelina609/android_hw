@@ -20,8 +20,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     private MediaPlayer mediaPlayer;
     private List<SongOls> songs = new ArrayList<>();
     private final IBinder musicBind = new MusicBinder();
-    int i = 0;
-    private static final int NOTIFY_ID = 1;
+    private int i = 0;
 
     @Override
     public void onCreate() {
@@ -62,22 +61,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
                 mediaPlayer = MediaPlayer.create(getApplicationContext(), songs.get(i).getRaw());
                 flag = false;
             } mediaPlayer.start();
-            Intent notIntent = new Intent(this, MainActivityOld.class);
-            notIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            PendingIntent pendInt = PendingIntent.getActivity(this, 0,
-                    notIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            Notification.Builder builder = new Notification.Builder(this);
-
-            builder.setContentIntent(pendInt)
-                    .setSmallIcon(R.drawable.ic_menu_send)
-                    .setTicker(songs.get(i).getName())
-                    .setOngoing(true)
-                    .setContentTitle("Playing")
-                    .setContentText(songs.get(i).getName());
-            Notification not = builder.build();
-
-            startForeground(NOTIFY_ID, not);
         }
     }
 
@@ -99,11 +82,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     public void onCompletion(MediaPlayer mediaPlayer) {
         mediaPlayer.reset();
         playNext();
-    }
-
-    @Override
-    public void onDestroy() {
-        stopForeground(true);
     }
 
     public void setI(int i) {

@@ -8,7 +8,6 @@ public class SongOls {
     private int raw;
 
     public SongOls(String name, int raw) {
-
         this.name = name;
         this.raw = raw;
     }

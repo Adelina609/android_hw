@@ -28,7 +28,7 @@
         android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_name_in_play"
-        app:srcCompat="@android:drawable/ic_media_next" />
+        app:srcCompat="@drawable/next" />
 
     <ImageButton
         android:id="@+id/btn_prev"
@@ -38,7 +38,7 @@
         android:layout_marginTop="36dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_name_in_play"
-        app:srcCompat="@android:drawable/ic_media_previous" />
+        app:srcCompat="@drawable/prev" />
 
     <TextView
         android:id="@+id/tv_name_in_play"
@@ -65,6 +65,6 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_next"
         app:layout_constraintStart_toEndOf="@+id/btn_prev"
         app:layout_constraintTop_toBottomOf="@+id/tv_name_in_play"
-        app:srcCompat="@android:drawable/ic_media_play" />
+        app:srcCompat="@drawable/play" />
 
 </android.support.constraint.ConstraintLayout>
