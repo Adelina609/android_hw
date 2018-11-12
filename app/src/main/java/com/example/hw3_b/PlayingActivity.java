@@ -4,9 +4,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -21,7 +24,7 @@ public class PlayingActivity extends AppCompatActivity {
 
     public final String NAME = "name";
     public final String RAW = "raw";
-
+    public final String THEME = "themeName";
     ImageView logo;
     ImageButton next;
     ImageButton prev;
@@ -35,18 +38,23 @@ public class PlayingActivity extends AppCompatActivity {
     private boolean musicBound;
     private Intent playIntent;
     private int raw = 0;
+    private String themeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        themeName = pref.getString("theme", "Orange");
+        Toast.makeText(this, "theme is Main" + themeName, Toast.LENGTH_SHORT).show();
+        setAppTheme();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play);
-
         logo = findViewById(R.id.iv_cover);
         next = findViewById(R.id.btn_next);
         prev = findViewById(R.id.btn_prev);
         start = findViewById(R.id.btn_start);
         tv_name = findViewById(R.id.tv_name_in_play);
-
         Intent intent = getIntent();
         String name = intent.getStringExtra(NAME);
         raw = intent.getIntExtra(RAW, 0);
@@ -96,6 +104,21 @@ public class PlayingActivity extends AppCompatActivity {
         }
     }
 
+    public void setAppTheme(){
+        switch (themeName){
+            case("Orange"):
+                setTheme(R.style.OrangeAppTheme);
+                break;
+            case("Purple"):
+                setTheme(R.style.PurpleAppTheme);
+                break;
+            case("Green"):
+                setTheme(R.style.TealAppTheme);
+                break;
+        }
+    }
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -138,9 +161,6 @@ public class PlayingActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_shuffle:
-                //shuffle
-                break;
             case R.id.action_end:
                 stopService(playIntent);
                 musicSrv=null;

@@ -7,8 +7,8 @@
     </string-array>
 
     <string-array name="listValues">
-        <item>Theme1</item>
-        <item>Theme2</item>
-        <item>Theme3</item>
+        <item>Orange</item>
+        <item>Purple</item>
+        <item>Green</item>
     </string-array>
 </resources>

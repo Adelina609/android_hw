@@ -16,5 +16,7 @@
     <color name="sky_blue">#6698FF</color>
     <color name="green_apple">#629632</color>
     <color name="for_background">#FFA3D7D6</color>
+    <color name="textTabColor">#ffffff</color>
+
 
 </resources>

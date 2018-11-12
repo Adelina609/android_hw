@@ -18,6 +18,7 @@ public class MainActivityOld extends AppCompatActivity {
 
     public final String NAME = "name";
     public final String RAW = "raw";
+    public final String THEME = "theme";
     TextView tvName;
     RecyclerView recyclerView;
     MusicAdapter adapter;
@@ -25,29 +26,20 @@ public class MainActivityOld extends AppCompatActivity {
     SharedPreferences sp;
     int theme = 0;
     private int SETTINGS_ACTION = 1;
+    public String themeName;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
-
         SharedPreferences pref = PreferenceManager
                 .getDefaultSharedPreferences(this);
-        String themeName = pref.getString("theme", "Theme1");
-        switch (themeName){
-            case("Theme1"):
-                setTheme(R.style.OrangeAppTheme);
-                break;
-            case("Theme2"):
-                setTheme(R.style.PurpleAppTheme);
-                break;
-            case("Theme3"):
-                setTheme(R.style.TealAppTheme);
-                break;
-        }
+        themeName = pref.getString("theme", "Orange");
+        Toast.makeText(this, "theme is Main" + themeName, Toast.LENGTH_SHORT).show();
+        setAppTheme();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.rv_main);
         tvName = findViewById(R.id.tv_nameOfSong);
-        recyclerView = findViewById(R.id.rv_main);
         songs = new ArrayList<>();
         recyclerView.setLayoutManager(new
                 LinearLayoutManager(this));
@@ -57,6 +49,8 @@ public class MainActivityOld extends AppCompatActivity {
                 Intent intent = new Intent(MainActivityOld.this, PlayingActivity.class);
                 intent.putExtra(NAME, song.getName());
                 intent.putExtra(RAW, song.getRaw());
+                intent.putExtra(THEME, themeName);
+                Toast.makeText(getApplicationContext(), "theme is Main" + themeName, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         };
@@ -71,6 +65,20 @@ public class MainActivityOld extends AppCompatActivity {
         songs.add(new SongOls("Our Last night - Sunrise", R.raw.our_last_night_sunrise));
         songs.add(new SongOls("Seether - The gift", R.raw.seether_the_gift));
         return songs;
+    }
+
+    public void setAppTheme(){
+        switch (themeName){
+            case("Orange"):
+                setTheme(R.style.OrangeAppTheme);
+                break;
+            case("Purple"):
+                setTheme(R.style.PurpleAppTheme);
+                break;
+            case("Green"):
+                setTheme(R.style.TealAppTheme);
+                break;
+        }
     }
 
     @Override

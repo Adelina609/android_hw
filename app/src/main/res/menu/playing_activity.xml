@@ -3,13 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_shuffle"
-        android:icon="@drawable/ic_menu_gallery"
-        android:orderInCategory="1"
-        android:title="@string/shuffle"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/action_end"
         android:icon="@drawable/ic_menu_send"
         android:orderInCategory="2"
