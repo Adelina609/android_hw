@@ -12,22 +12,25 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="OrangeAppTheme" parent="Base.Theme.AppCompat">
+    <style name="OrangeAppTheme" parent="Base.Theme.AppCompat.Light">
         <item name="colorPrimary">@color/colorPrimaryOrange</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkOrange</item>
         <item name="colorAccent">@color/colorAccentOrange</item>
+        <item name="windowBackground">@color/for_background</item>
     </style>
 
-    <style name="PurpleAppTheme" parent="Base.Theme.AppCompat">
+    <style name="PurpleAppTheme" parent="Base.Theme.AppCompat.Light">
         <item name="colorPrimary">@color/colorPrimaryPurple</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkPurple</item>
         <item name="colorAccent">@color/colorAccentPurple</item>
+        <item name="windowBackground">@color/for_background</item>
     </style>
 
-    <style name="TealAppTheme" parent="Base.Theme.AppCompat">
+    <style name="TealAppTheme" parent="Base.Theme.AppCompat.Light">
         <item name="colorPrimary">@color/colorPrimaryTeal</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkTeal</item>
         <item name="colorAccent">@color/colorAccentTeal</item>
+        <item name="windowBackground">@color/for_background</item>
     </style>
 
 

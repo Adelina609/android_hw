@@ -43,8 +43,6 @@ public class MainActivityOld extends AppCompatActivity {
                 setTheme(R.style.TealAppTheme);
                 break;
         }
-        Toast.makeText(this, "Theme has been reset to " + themeName,
-                Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.rv_main);
@@ -97,7 +95,6 @@ public class MainActivityOld extends AppCompatActivity {
             if (resultCode == ThemePreferenceActivity.RESULT_CODE_THEME_UPDATED) {
                 finish();
                 startActivity(getIntent());
-                Toast.makeText(this, "Starting new Activity", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
