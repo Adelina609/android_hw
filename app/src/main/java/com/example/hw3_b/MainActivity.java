@@ -10,29 +10,30 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-
-public class MainActivityOld extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     public final String NAME = "name";
     public final String RAW = "raw";
     public final String THEME = "theme";
+
     TextView tvName;
     RecyclerView recyclerView;
     MusicAdapter adapter;
     SharedPreferences sp;
+
     private int SETTINGS_ACTION = 1;
     public String themeName;
     private SongsUtil songsUtil = new SongsUtil();
+    private int themeId = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         SharedPreferences pref = PreferenceManager
                 .getDefaultSharedPreferences(this);
         themeName = pref.getString("theme", "Orange");
-        setAppTheme();
+        setAppThemeId();
+        setTheme(themeId);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -42,8 +43,8 @@ public class MainActivityOld extends AppCompatActivity {
                 LinearLayoutManager(this));
         MusicAdapter.OnItemClickListener onItemClickListener = new MusicAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(SongOls song) {
-                Intent intent = new Intent(MainActivityOld.this, PlayingActivity.class);
+            public void onItemClick(Song song) {
+                Intent intent = new Intent(MainActivity.this, PlayingActivity.class);
                 intent.putExtra(NAME, song.getName());
                 intent.putExtra(RAW, song.getRaw());
                 intent.putExtra(THEME, themeName);
@@ -54,16 +55,16 @@ public class MainActivityOld extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    public void setAppTheme(){
+    public void setAppThemeId(){
         switch (themeName){
             case("Orange"):
-                setTheme(R.style.OrangeAppTheme);
+                themeId = R.style.OrangeAppTheme;
                 break;
             case("Purple"):
-                setTheme(R.style.PurpleAppTheme);
+                themeId = R.style.PurpleAppTheme;
                 break;
             case("Green"):
-                setTheme(R.style.TealAppTheme);
+                themeId = R.style.TealAppTheme;
                 break;
         }
     }

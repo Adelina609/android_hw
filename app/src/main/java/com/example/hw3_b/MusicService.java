@@ -1,7 +1,5 @@
 package com.example.hw3_b;
 
-import android.app.Notification;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -12,15 +10,14 @@ import android.os.PowerManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MusicService extends Service implements MediaPlayer.OnCompletionListener {
 
     private MediaPlayer mediaPlayer;
-    private List<SongOls> songs = new ArrayList<>();
+    private List<Song> songs = new ArrayList<>();
     private final IBinder musicBind = new MusicBinder();
-    private int i = 0;
+    private int currentIdx = 0;
+    private boolean isFirstCreating = true;
 
     @Override
     public void onCreate() {
@@ -47,34 +44,33 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         mediaPlayer.setOnCompletionListener(this);
     }
 
-    public void setList(ArrayList<SongOls> list){
+    public void setList(ArrayList<Song> list){
         songs = list;
     }
 
-    boolean flag = true;
     public void playSong(){
         if(mediaPlayer.isPlaying()){
             mediaPlayer.pause();
         }else {
-            if (flag) {
+            if (isFirstCreating) {
                 mediaPlayer.reset();
-                mediaPlayer = MediaPlayer.create(getApplicationContext(), songs.get(i).getRaw());
-                flag = false;
+                mediaPlayer = MediaPlayer.create(getApplicationContext(), songs.get(currentIdx).getRaw());
+                isFirstCreating = false;
             } mediaPlayer.start();
         }
     }
 
     public void playNext(){
         mediaPlayer.reset();
-        if(i == songs.size()-1) i = -1;
-        mediaPlayer = MediaPlayer.create(getApplicationContext(), songs.get(++i).getRaw());
+        if(currentIdx == songs.size()-1) currentIdx = -1;
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), songs.get(++currentIdx).getRaw());
         mediaPlayer.start();
     }
 
     public void playPrev(){
         mediaPlayer.reset();
-        if(i == 0) i = songs.size();
-        mediaPlayer = MediaPlayer.create(getApplicationContext(), songs.get(--i).getRaw());
+        if(currentIdx == 0) currentIdx = songs.size();
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), songs.get(--currentIdx).getRaw());
         mediaPlayer.start();
     }
 
@@ -84,11 +80,11 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         playNext();
     }
 
-    public void setI(int i) {
-        this.i = i;
+    public void setCurrentIdx(int currentIdx) {
+        this.currentIdx = currentIdx;
     }
 
-    public int getI() {
-        return i;
+    public int getCurrentIdx() {
+        return currentIdx;
     }
 }

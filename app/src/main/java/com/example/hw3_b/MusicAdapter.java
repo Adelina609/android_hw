@@ -10,10 +10,10 @@ import java.util.List;
 
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHolder> {
 
-    private List<SongOls> list;
+    private List<Song> list;
     private OnItemClickListener onItemClickListener;
 
-    public MusicAdapter(List<SongOls> list, OnItemClickListener onItemClickListener) {
+    public MusicAdapter(List<Song> list, OnItemClickListener onItemClickListener) {
         this.list = list;
         this.onItemClickListener = onItemClickListener;
     }
@@ -43,18 +43,18 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    SongOls song = list.get(getLayoutPosition());
+                    Song song = list.get(getLayoutPosition());
                     onItemClickListener.onItemClick(song);
                 }
             });
         }
 
-        public void bind(SongOls song) {
+        public void bind(Song song) {
             tv_name.setText(song.getName());
         }
     }
 
-        public interface OnItemClickListener{
-            void onItemClick(SongOls song);
+    public interface OnItemClickListener{
+            void onItemClick(Song song);
         }
 }

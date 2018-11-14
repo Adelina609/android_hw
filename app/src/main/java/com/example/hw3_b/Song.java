@@ -2,12 +2,12 @@ package com.example.hw3_b;
 
 import java.util.Objects;
 
-public class SongOls {
+public class Song {
 
     private String name;
     private int raw;
 
-    public SongOls(String name, int raw) {
+    public Song(String name, int raw) {
         this.name = name;
         this.raw = raw;
     }
@@ -28,7 +28,7 @@ public class SongOls {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SongOls song = (SongOls) o;
+        Song song = (Song) o;
         return Objects.equals(name, song.name) &&
                 Objects.equals(raw, song.raw);
     }

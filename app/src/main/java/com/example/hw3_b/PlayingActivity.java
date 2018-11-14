@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -16,9 +15,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 public class PlayingActivity extends AppCompatActivity {
 
@@ -29,7 +25,6 @@ public class PlayingActivity extends AppCompatActivity {
     public ImageButton prev;
     public ImageButton start;
     public TextView tv_name;
-    public AudioManager audioManager;
     public MusicService musicSrv;
     private boolean musicBound;
     private Intent playIntent;
@@ -45,7 +40,7 @@ public class PlayingActivity extends AppCompatActivity {
         setAppTheme();
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.play);
+        setContentView(R.layout.activity_play);
         logo = findViewById(R.id.iv_cover);
         next = findViewById(R.id.btn_next);
         prev = findViewById(R.id.btn_prev);
@@ -55,7 +50,6 @@ public class PlayingActivity extends AppCompatActivity {
         String name = intent.getStringExtra(NAME);
         raw = intent.getIntExtra(RAW, 0);
         tv_name.setText(name);
-        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,14 +61,14 @@ public class PlayingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 musicSrv.playNext();
-                tv_name.setText(songsUtil.fillIn().get(musicSrv.getI()).getName());
+                tv_name.setText(songsUtil.fillIn().get(musicSrv.getCurrentIdx()).getName());
             }
         });
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 musicSrv.playPrev();
-                tv_name.setText(songsUtil.fillIn().get(musicSrv.getI()).getName());
+                tv_name.setText(songsUtil.fillIn().get(musicSrv.getCurrentIdx()).getName());
             }
         });
     }
@@ -117,7 +111,7 @@ public class PlayingActivity extends AppCompatActivity {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) iBinder;
             musicSrv = binder.getService();
             musicSrv.setList(songsUtil.fillIn());
-            musicSrv.setI(getPosition());
+            musicSrv.setCurrentIdx(getPosition());
             musicBound = true;
         }
         @Override
