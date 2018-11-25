@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private val SETTINGS_ACTION = 1
     var themeName: String? = null
-    private SongsUtil songsUtil = new SongsUtil();
+    //private SongsUtil songsUtil = new SongsUtil();
     private var themeId = 0
 
     public override fun onCreate(savedInstanceState: Bundle?) {
