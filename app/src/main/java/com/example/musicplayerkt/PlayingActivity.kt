@@ -35,10 +35,12 @@ class PlayingActivity : AppCompatActivity() {
 
     private val musicConnection = object : ServiceConnection {
         override fun onServiceConnected(componentName: ComponentName, iBinder: IBinder) {
-            val binder = iBinder as MusicService.MusicBinder
-            musicSrv = binder.service
-            musicSrv?.setList(songsUtil.fillIn())
-            musicSrv?.currentIdx = position
+            val binder = iBinder as? MusicService.MusicBinder
+            musicSrv = binder?.service
+            musicSrv?.let {
+                it.setList(songsUtil.fillIn())
+                it.currentIdx = position
+            }
             musicBound = true
         }
 
@@ -66,11 +68,6 @@ class PlayingActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play)
-        logo = findViewById(R.id.iv_cover)
-        next = findViewById(R.id.btn_next)
-        prev = findViewById(R.id.btn_prev)
-        start = findViewById(R.id.btn_start)
-        tv_name = findViewById(R.id.tv_name_in_play)
         val intent = intent
         val name = intent.getStringExtra(NAME)
         raw = intent.getIntExtra(RAW, 0)
@@ -79,11 +76,11 @@ class PlayingActivity : AppCompatActivity() {
         start.setOnClickListener { musicSrv?.playSong() }
         next.setOnClickListener {
             musicSrv?.playNext()
-            tv_name.setText(songsUtil.fillIn().get(musicSrv!!.currentIdx).getName())
+            tv_name.setText(songsUtil.fillIn().get(musicSrv?.currentIdx).getName())
         }
         prev.setOnClickListener {
             musicSrv?.playPrev()
-            tv_name.setText(songsUtil.fillIn().get(musicSrv!!.currentIdx).getName())
+            tv_name.setText(songsUtil.fillIn().get(musicSrv?.currentIdx).getName())
         }
     }
 

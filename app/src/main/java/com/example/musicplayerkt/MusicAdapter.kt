@@ -22,19 +22,13 @@ class MusicAdapter(private val list: List<Song>, private val onItemClickListener
         return list.size
     }
 
-    inner class MusicViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var tv_name: TextView
-
-        init {
-            tv_name = view.findViewById(R.id.tv_nameOfSong)
+    inner class MusicViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(song: Song) = with(itemView) {
+            tv_name.text = song.name
             view.setOnClickListener {
                 val song = list[layoutPosition]
                 onItemClickListener.onItemClick(song)
             }
-        }
-
-        fun bind(song: Song) {
-            tv_name.text = song.name
         }
     }
 
