@@ -36,19 +36,17 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        recyclerView = findViewById(R.id.rv_main)
-        tvName = findViewById(R.id.tv_nameOfSong)
         recyclerView.layoutManager = LinearLayoutManager(this)
         val onItemClickListener = object : MusicAdapter.OnItemClickListener {
             override fun onItemClick(song: Song) {
                 val intent = Intent(this@MainActivity, PlayingActivity::class.java)
-            intent.putExtra(NAME, song.name)
-            intent.putExtra(RAW, song.raw)
-            intent.putExtra(THEME, themeName)
-            startActivity(intent)
+                intent.putExtra(NAME, song.name)
+                intent.putExtra(RAW, song.raw)
+                intent.putExtra(THEME, themeName)
+                startActivity(intent)
             }
         }
-        adapter = new MusicAdapter(songsUtil.fillIn(), onItemClickListener)
+        adapter = MusicAdapter(songsUtil.fillIn(), onItemClickListener)
         recyclerView.adapter = adapter
     }
 
@@ -57,6 +55,8 @@ class MainActivity : AppCompatActivity() {
             "Orange" -> themeId = R.style.OrangeAppTheme
             "Purple" -> themeId = R.style.PurpleAppTheme
             "Green" -> themeId = R.style.TealAppTheme
+            else ->
+                themeId = R.style.AppTheme;
         }
     }
 

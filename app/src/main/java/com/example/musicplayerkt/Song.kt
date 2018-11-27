@@ -8,6 +8,6 @@ class Song(var name: String?, val raw: Int) {
         if (this === o) return true
         if (o == null || javaClass != o.javaClass) return false
         val song = o as Song?
-        return name == song!!.name && raw == song.raw
+        return name == song?.name && raw == song?.raw
     }
 }
